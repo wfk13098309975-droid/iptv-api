@@ -1,15 +1,13 @@
 🕘️更新时间,#genre#
-2025-09-05 18:47:55,https://cc06.tv12.xyz/2.m3u8$订阅源
+2025-09-05 23:37:37,https://cc06.tv12.xyz/3.m3u8$订阅源
 
 📺央视频道,#genre#
-CCTV-2,https://cc06.tv12.xyz/2.m3u8$订阅源
 CCTV-3,https://cc06.tv12.xyz/3.m3u8$订阅源
 CCTV-4,https://mursor.ottiptv.cc/migu/631780421.m3u8?migutoken=0ab731fc97a40439557fecc600f905d67bfc49ad7fc7faf3acce2c8bd27241f612dc8aa8b0d55d864094e2ac93907d2f187fcc1faeaf8f7019d10eea113efbe166ec7a687118d53a3e3ddc7fb5$订阅源
 CCTV-4,https://cc06.tv12.xyz/4.m3u8$订阅源
-CCTV-4,https://smart.pendy.dpdns.org/Smart.php?id=Cctv4$订阅源
 CCTV-5,https://mursor.ottiptv.cc/migu/641886683.m3u8?migutoken=77f0c548618e5e42bb7bf80c4f009258545d4049642fe079206e982e5f28aa06f2bb8d8ab63f5c519f74f772eef76d514bd132556cf4ae68caabbcc3d4d2efe119537c7e94d9ca40320f25a224$订阅源
-CCTV-5,https://ldcctvwbcdks.v.kcdnvip.com/ldcctvwbcd/cdrmldcctv5plus_1/index.m3u8?b=200-2100$订阅源
 CCTV-5,https://cc06.tv12.xyz/5.m3u8$订阅源
+CCTV-5,https://ldcctvwbcdks.v.kcdnvip.com/ldcctvwbcd/cdrmldcctv5plus_1/index.m3u8?b=200-2100$订阅源
 CCTV-5,https://smart.pendy.dpdns.org/Smart.php?id=cctv5$订阅源
 CCTV-5+,https://cc06.tv12.xyz/6.m3u8$订阅源
 CCTV-5+,https://smart.pendy.dpdns.org/Smart.php?id=cctv5plus$订阅源
@@ -29,11 +27,11 @@ CCTV-12,https://mursor.ottiptv.cc/migu/673168185.m3u8?migutoken=a803c5816215db51
 CCTV-12,https://cc06.tv12.xyz/13.m3u8$订阅源
 CCTV-12,https://smart.pendy.dpdns.org/Smart.php?id=cctv12$订阅源
 CCTV-13,https://event.pull.hebtv.com/jishi/cp1.m3u8$订阅源
+CCTV-13,https://cc06.tv12.xyz/14.m3u8$订阅源
 CCTV-13,http://ali-m-l.cztv.com/channels/lantian/channel21/1080p.m3u8$订阅源
 CCTV-13,https://epg.pw/stream/5d3d047c64e44d0a24dc33e5700e579457201d2960036b43819bd930a0bb76a7.m3u8$订阅源
 CCTV-13,http://jwplay.hebyun.com.cn/live/cctv13/1500k/tzwj_video.m3u8$订阅源
 CCTV-13,https://ldncctvwbcdcnc.v.wscdns.com/ldncctvwbcd/cdrmldcctv13_1/index.m3u8$订阅源
-CCTV-13,https://cc06.tv12.xyz/14.m3u8$订阅源
 CCTV-13,https://smart.pendy.dpdns.org/Smart.php?id=cctv13$订阅源
 CCTV-14,https://event.pull.hebtv.com/jishi/cp2.m3u8#rtsp://103.251.96.71/PLTV/88888888/224/3221225783/10000100000000060000000000726027_0.smil?icpid=SSPID&amp;accounttype=1&amp;limitflux=-1&amp;limitdur=-1&amp;accountinfo=:20240213104135$订阅源
 CCTV-14,https://cc06.tv12.xyz/15.m3u8$订阅源
