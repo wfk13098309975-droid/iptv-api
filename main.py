@@ -26,7 +26,6 @@ from utils.channel import (
 from utils.config import config
 from utils.tools import (
     get_pbar_remaining,
-    get_ip_address,
     process_nested_dict,
     format_interval,
     check_ipv6_support,
@@ -34,7 +33,9 @@ from utils.tools import (
     get_version_info,
     join_url,
     get_urls_len,
-    merge_objects
+    merge_objects,
+    get_public_url,
+    parse_times
 )
 from utils.types import CategoryChannelData
 
@@ -115,6 +116,7 @@ class UpdateSource:
             main_start_time = time()
             if config.open_update:
                 self.channel_items = get_channel_items()
+                self.channel_data = {}
                 channel_names = [
                     name
                     for channel_obj in self.channel_items.values()
@@ -198,7 +200,7 @@ class UpdateSource:
                     tip,
                     100,
                     finished=True,
-                    url=f"{get_ip_address()}" if open_service else None,
+                    url=f"{get_public_url()}" if open_service else None,
                     now=self.now
                 )
         except asyncio.exceptions.CancelledError:
@@ -213,9 +215,9 @@ class UpdateSource:
         if self.run_ui:
             self.update_progress(f"正在检查网络是否支持IPv6", 0)
         self.ipv6_support = config.ipv6_support or check_ipv6_support()
-        if not os.getenv("GITHUB_ACTIONS") and config.update_interval:
+        if not os.getenv("GITHUB_ACTIONS") and (config.update_interval or config.update_times):
             await self.scheduler(asyncio.Event())
-        else:
+        elif config.update_startup:
             await self.main()
 
     def stop(self):
@@ -229,15 +231,45 @@ class UpdateSource:
 
     async def scheduler(self, stop_event):
         self.stop_event = stop_event
-        while not stop_event.is_set():
-            self.now = datetime.datetime.now(pytz.timezone(config.time_zone))
-            await self.main()
-            next_time = self.now + datetime.timedelta(hours=config.update_interval)
-            print(f"🕒 Next update time: {next_time:%Y-%m-%d %H:%M:%S}")
-            try:
-                await asyncio.wait_for(stop_event.wait(), timeout=config.update_interval * 3600)
-            except asyncio.TimeoutError:
-                continue
+        tz = pytz.timezone(config.time_zone)
+        mode = config.update_mode
+        update_times = parse_times(config.update_times)
+
+        try:
+            self.now = datetime.datetime.now(tz)
+            if config.update_startup:
+                await self.main()
+
+            while not stop_event.is_set():
+                self.now = datetime.datetime.now(tz)
+
+                if mode == "time" and update_times:
+                    candidates = []
+                    for h, m in update_times:
+                        candidate = self.now.replace(hour=h, minute=m, second=0, microsecond=0)
+                        if candidate <= self.now:
+                            candidate = candidate + datetime.timedelta(days=1)
+                        candidates.append(candidate)
+                    next_time = min(candidates)
+                    wait_seconds = (next_time - self.now).total_seconds()
+                    print(f"🕒 Next scheduled update: {next_time:%Y-%m-%d %H:%M:%S}")
+                    try:
+                        await asyncio.wait_for(stop_event.wait(), timeout=wait_seconds)
+                        if stop_event.is_set():
+                            break
+                    except asyncio.TimeoutError:
+                        self.now = datetime.datetime.now(tz)
+                        await self.main()
+                        continue
+                else:
+                    next_time = self.now + datetime.timedelta(hours=config.update_interval)
+                    print(f"🕒 Next scheduled update: {next_time:%Y-%m-%d %H:%M:%S}")
+                    try:
+                        await asyncio.wait_for(stop_event.wait(), timeout=config.update_interval * 3600)
+                    except asyncio.TimeoutError:
+                        continue
+        except asyncio.CancelledError:
+            print("Scheduler cancelled!")
 
 
 if __name__ == "__main__":
